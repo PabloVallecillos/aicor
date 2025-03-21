@@ -15,9 +15,9 @@ jobs:
 
       - name: Set up SSH Key
         run: |
-          echo "${{ secrets.EC2_SSH_KEY }}" > private_key.pem
+          echo "${{ secrets.CD_EC2_SSH_KEY }}" > private_key.pem
           chmod 600 private_key.pem
 
       - name: Connect to EC2 and run deploy script
         run: |
-          ssh -o StrictHostKeyChecking=no -i private_key.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} 'source ~/.bashrc && bash ~/projects/aicor/deploy.sh'
+          ssh -o StrictHostKeyChecking=no -i private_key.pem ${{ secrets.CD_EC2_USER }}@${{ secrets.CD_EC2_HOST }} 'source ~/.bashrc && bash ~/projects/aicor/deploy.sh'

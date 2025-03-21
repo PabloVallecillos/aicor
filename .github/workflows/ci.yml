@@ -7,17 +7,17 @@ on:
 
 jobs:
   test:
-    name: Run tests
+    name: Run tests and code style check
     runs-on: ubuntu-latest
 
     services:
       mariadb:
         image: mariadb:10.7
         env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: testing
-          MYSQL_USER: test_user
-          MYSQL_PASSWORD: test_password
+          MYSQL_ROOT_PASSWORD: ${{ secrets.CI_DB_ROOT_PASSWORD }}
+          MYSQL_DATABASE: ${{ secrets.CI_DB_DATABASE }}
+          MYSQL_USER: ${{ secrets.CI_DB_USERNAME }}
+          MYSQL_PASSWORD: ${{ secrets.CI_DB_PASSWORD }}
         ports:
           - 3306:3306
 
@@ -48,13 +48,18 @@ jobs:
           echo "DB_CONNECTION=mysql" >> .env
           echo "DB_HOST=127.0.0.1" >> .env
           echo "DB_PORT=3306" >> .env
-          echo "DB_DATABASE=testing" >> .env
-          echo "DB_USERNAME=test_user" >> .env
-          echo "DB_PASSWORD=test_password" >> .env
+          echo "DB_DATABASE=${{ secrets.CI_DB_DATABASE }}" >> .env
+          echo "DB_USERNAME=${{ secrets.CI_DB_USERNAME }}" >> .env
+          echo "DB_PASSWORD=${{ secrets.CI_DB_PASSWORD }}" >> .env
           composer install --no-interaction
           php artisan key:generate
           php artisan migrate:fresh --seed
           php artisan test
+
+      - name: Run Pint
+        run: |
+          cd back
+          ./vendor/bin/pint --test
 
       - name: Cache npm dependencies
         uses: actions/cache@v3
@@ -68,6 +73,11 @@ jobs:
         run: |
           cd front
           npm install
+
+      - name: Run ESLint
+        run: |
+          cd front
+          npm run lint
 
       - name: Run front tests
         run: |
