@@ -21,7 +21,6 @@ Inspired by this [template](https://github.com/Kiranism/react-shadcn-dashboard-s
 - Js Library - [React 19](https://react.dev/)
 - Language - [TypeScript](https://www.typescriptlang.org)
 - Styling - [Tailwind CSS](https://tailwindcss.com)
-- Components - [Shadcn-ui](https://ui.shadcn.com)
 - Async state management - [Tanstack Query aka React Query](https://tanstack.com/query/latest/docs/framework/react/overview)
 - Linting - [ESLint](https://eslint.org)
 - Formatting - [Prettier](https://prettier.io)
