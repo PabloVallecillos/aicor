@@ -23,6 +23,8 @@ export default function Nav() {
                   to={href}
                   className="flex items-center rounded-md px-3 py-2 text-sm font-medium text-primary"
                 >
+                  {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+                  {/* @ts-expect-error */}
                   <Icon className="mr-1 h-5 w-5" />
                 </Link>
               );

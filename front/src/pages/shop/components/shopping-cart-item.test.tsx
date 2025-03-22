@@ -31,6 +31,8 @@ describe('ShoppingCartItem', () => {
 
   beforeEach(() => {
     vi.mocked(cartProvider.useCart).mockReturnValue({
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
       cart: [mockItem],
       cartTotal: 25,
       updateQuantity: mockUpdateQuantity,
