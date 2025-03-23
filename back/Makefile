@@ -17,3 +17,7 @@ action-install:
 .PHONY: optimize
 optimize:
 	php artisan optimize
+
+.PHONY: generate-jwt-secret
+generate-jwt-secret:
+	php artisan jwt:secret
