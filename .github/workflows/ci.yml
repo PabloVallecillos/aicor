@@ -42,19 +42,20 @@ jobs:
       - name: Configure Laravel environment for testing
         run: |
           cd back
-          cp .env.example .env
-          echo "APP_ENV=testing" >> .env
-          echo "APP_KEY=" >> .env
-          echo "DB_CONNECTION=mysql" >> .env
-          echo "DB_HOST=127.0.0.1" >> .env
-          echo "DB_PORT=3306" >> .env
-          echo "DB_DATABASE=${{ secrets.CI_DB_DATABASE }}" >> .env
-          echo "DB_USERNAME=${{ secrets.CI_DB_USERNAME }}" >> .env
-          echo "DB_PASSWORD=${{ secrets.CI_DB_PASSWORD }}" >> .env
-          composer install --no-interaction
-          php artisan key:generate
-          php artisan migrate:fresh --seed
-          php artisan test
+          cp .env.example .env.testing
+          echo "APP_ENV=testing" >> .env.testing
+          echo "APP_KEY=" >> .env.testing
+          echo "DB_CONNECTION=mysql" >> .env.testing
+          echo "DB_HOST=127.0.0.1" >> .env.testing
+          echo "DB_PORT=3306" >> .env.testing
+          echo "DB_DATABASE=${{ secrets.CI_DB_DATABASE }}" >> .env.testing
+          echo "DB_USERNAME=${{ secrets.CI_DB_USERNAME }}" >> .env.testing
+          echo "DB_PASSWORD=${{ secrets.CI_DB_PASSWORD }}" >> .env.testing
+          make action-install
+          make key-generate
+          make optimize
+          make migrate-fresh-testing
+          make test
 
       - name: Run Pint
         run: |

@@ -13,3 +13,7 @@ key-generate:
 .PHONY: action-install
 action-install:
 	composer install --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+
+.PHONY: optimize
+optimize:
+	php artisan optimize
