@@ -24,10 +24,12 @@ Inspired by this [template](https://github.com/Kiranism/react-shadcn-dashboard-s
 - Async state management - [Tanstack Query aka React Query](https://tanstack.com/query/latest/docs/framework/react/overview)
 - Linting - [ESLint](https://eslint.org)
 - Formatting - [Prettier](https://prettier.io)
+- Authentication - [@react-oauth/google](https://www.npmjs.com/package/@react-oauth/google)
 
 ### 📂 back architecture and dependencies
 
 - OpenAPI (Swagger) documentation - [scramble](https://scramble.dedoc.co/)
+- Authentication - [Laravel Socialite](https://laravel.com/docs/12.x/socialite)
 
 ## 🚀 Installation and Setup
 ### Requirements
