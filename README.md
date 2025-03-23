@@ -25,6 +25,10 @@ Inspired by this [template](https://github.com/Kiranism/react-shadcn-dashboard-s
 - Linting - [ESLint](https://eslint.org)
 - Formatting - [Prettier](https://prettier.io)
 
+### 📂 back architecture and dependencies
+
+- OpenAPI (Swagger) documentation - [scramble](https://scramble.dedoc.co/)
+
 ## 🚀 Installation and Setup
 ### Requirements
 - **PHP 8.4**, Composer, MariaDB, Node.js, npm
