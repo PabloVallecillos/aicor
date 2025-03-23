@@ -1,4 +1,4 @@
-import { useCart } from '@/providers/cart-provider.tsx';
+import { useCart } from '@/hooks/use-cart.tsx';
 import Image from '@/components/ui/image';
 import { CartItem } from '@/types';
 

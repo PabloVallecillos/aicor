@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import ProductCard from './product-card';
 import type { Product } from '@/types';
 import { mockProducts } from '@/constants/data.ts';
-import { useCart } from '@/providers/cart-provider.tsx';
+import { useCart } from '@/hooks/use-cart.tsx';
 import Loader from '@/components/shared/loader.tsx';
 
 export default function ProductGrid() {

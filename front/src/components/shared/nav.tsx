@@ -1,6 +1,6 @@
 import { ShoppingCart } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useCart } from '@/providers/cart-provider.tsx';
+import { useCart } from '@/hooks/use-cart.tsx';
 import { navItems } from '@/constants/data.ts';
 import { Logo } from '@/components/shared/logo.tsx';
 
@@ -11,7 +11,7 @@ export default function Nav() {
     <nav className="bg-secondary shadow-sm dark:bg-primary-foreground">
       <div className="mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
-          <Link to="/" className="h-auto py-2 sm:h-12">
+          <Link to="/" className="h-8 py-2">
             <Logo className="h-full w-auto" />
           </Link>
 

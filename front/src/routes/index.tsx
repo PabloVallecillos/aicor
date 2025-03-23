@@ -8,7 +8,7 @@ const PurchasesPage = lazy(() => import('@/pages/purchases'));
 const NotFound = lazy(() => import('@/pages/not-found'));
 
 const isAuthenticated = () => {
-  return true;
+  return false;
 };
 
 function ProtectedRoute() {
