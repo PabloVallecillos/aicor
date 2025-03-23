@@ -30,3 +30,21 @@ export interface Purchase {
   total: number;
   items: CartItem[];
 }
+
+export interface AuthContextType {
+  authToken: string | null;
+  login: (token: string) => void;
+  logout: () => void;
+}
+
+export interface CartContextType {
+  cartItems: CartItem[];
+  isCartOpen: boolean;
+  openCart: () => void;
+  closeCart: () => void;
+  addToCart: (product: Product) => void;
+  removeFromCart: (productId: string) => void;
+  updateQuantity: (productId: string, quantity: number) => void;
+  totalItems: number;
+  totalPrice: number;
+}

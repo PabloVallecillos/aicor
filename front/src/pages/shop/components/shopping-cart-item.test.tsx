@@ -3,9 +3,9 @@ import '@testing-library/jest-dom/vitest';
 import { cleanup, render, screen, fireEvent } from '@testing-library/react';
 import ShoppingCartItem from '@/pages/shop/components/shopping-cart-item';
 import { CartItem } from '@/types';
-import * as cartProvider from '@/providers/cart-provider.tsx';
+import * as cartProvider from '@/hooks/use-cart.tsx';
 
-vi.mock('@/providers/cart-provider.tsx', () => ({
+vi.mock('@/hooks/use-cart.tsx', () => ({
   useCart: vi.fn()
 }));
 

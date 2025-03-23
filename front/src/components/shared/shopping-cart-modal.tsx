@@ -1,4 +1,4 @@
-import { useCart } from '@/providers/cart-provider.tsx';
+import { useCart } from '@/hooks/use-cart.tsx';
 import ShoppingCartItem from '@/pages/shop/components/shopping-cart-item.tsx';
 import { X } from 'lucide-react';
 

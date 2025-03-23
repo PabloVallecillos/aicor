@@ -1,4 +1,4 @@
-import UserAuthForm from './components/user-auth-form';
+import GoogleLoginButton from '@/pages/auth/signin/components/google-login-button.tsx';
 
 export default function SignInPage() {
   return (
@@ -6,7 +6,7 @@ export default function SignInPage() {
       <div className="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex"></div>
       <div className="flex h-full items-center p-4 lg:p-8">
         <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
-          <UserAuthForm />
+          <GoogleLoginButton />
         </div>
       </div>
     </div>

@@ -8,6 +8,8 @@ import ThemeProvider from './theme-provider';
 // import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Toaster } from '@/components/ui/toaster.tsx';
 import { CartProvider } from '@/providers/cart-provider.tsx';
+import { AuthProvider } from '@/providers/auth-provider.tsx';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 // eslint-disable-next-line react-refresh/only-export-components
 export const queryClient = new QueryClient();
 
@@ -43,10 +45,16 @@ export default function AppProvider({
           <QueryClientProvider client={queryClient}>
             {/*<ReactQueryDevtools />*/}
             <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-              <CartProvider>
-                <Toaster />
-                {children}
-              </CartProvider>
+              <GoogleOAuthProvider
+                clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}
+              >
+                <AuthProvider>
+                  <CartProvider>
+                    <Toaster />
+                    {children}
+                  </CartProvider>
+                </AuthProvider>
+              </GoogleOAuthProvider>
             </ThemeProvider>
           </QueryClientProvider>
         </ErrorBoundary>
