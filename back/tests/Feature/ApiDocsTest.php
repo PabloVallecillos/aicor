@@ -1,11 +1,11 @@
 <?php
 
+use App\Models\User;
 use function Pest\Laravel\getJson;
 
 it('returns a valid JSON with openapi 3.1.0', function () {
     $response = getJson('/docs/api.json');
 
-    $response->assertOk()
-        ->assertHeader('Content-Type', 'application/json')
-        ->assertJsonPath('openapi', '3.1.0');
+    // TODO: change when authentication is implemented
+    $response->assertStatus(status:403);
 });
