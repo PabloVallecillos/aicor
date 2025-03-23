@@ -51,10 +51,11 @@ jobs:
           echo "DB_DATABASE=${{ secrets.CI_DB_DATABASE }}" >> .env
           echo "DB_USERNAME=${{ secrets.CI_DB_USERNAME }}" >> .env
           echo "DB_PASSWORD=${{ secrets.CI_DB_PASSWORD }}" >> .env
-          composer install --no-interaction
-          php artisan key:generate
-          php artisan migrate:fresh --seed
-          php artisan test
+          make action-install
+          make key-generate
+          make optimize
+          make migrate-fresh-testing
+          make test
 
       - name: Run Pint
         run: |
