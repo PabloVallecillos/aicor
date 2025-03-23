@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\User;
 use function Pest\Laravel\getJson;
 
 it('returns a valid JSON with openapi 3.1.0', function () {
