@@ -21,7 +21,7 @@ export default function GoogleLoginButton() {
           description: 'Authentication failed'
         });
       }
-    },
+    }
   });
 
   return (
