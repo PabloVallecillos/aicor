@@ -1,5 +1,6 @@
 import { AuthContext } from '@/hooks/use-auth';
-import React, { useState, useEffect, ReactNode } from 'react';
+import React, { useState, ReactNode } from 'react';
+import { JWT_LOCAL_STORAGE_KEY } from '@/constants/local-storage.tsx';
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -7,22 +8,18 @@ interface AuthProviderProps {
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [authToken, setAuthToken] = useState<string | null>(
-    localStorage.getItem('jwt_token') || null
+    localStorage.getItem(JWT_LOCAL_STORAGE_KEY) || null
   );
 
   const login = (token: string) => {
     setAuthToken(token);
-    localStorage.setItem('jwt_token', token);
+    localStorage.setItem(JWT_LOCAL_STORAGE_KEY, token);
   };
 
   const logout = () => {
     setAuthToken(null);
-    localStorage.removeItem('jwt_token');
+    localStorage.removeItem(JWT_LOCAL_STORAGE_KEY);
   };
-
-  useEffect(() => {
-    // validate
-  }, [authToken]);
 
   return (
     <AuthContext.Provider value={{ authToken, login, logout }}>

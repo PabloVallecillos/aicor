@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import ProductCard from './product-card';
 import type { Product } from '@/types';
-import { mockProducts } from '@/constants/data.ts';
+import { MOCK_PRODUCTS } from '@/constants/data.ts';
 import { useCart } from '@/hooks/use-cart.tsx';
 import Loader from '@/components/shared/loader.tsx';
 
@@ -18,7 +18,7 @@ export default function ProductGrid() {
     await new Promise((resolve) => setTimeout(resolve, 1000));
     setProducts((prev) => [
       ...prev,
-      ...mockProducts.map((p) => ({ ...p, id: `${p.id}-${Math.random()}` }))
+      ...MOCK_PRODUCTS.map((p) => ({ ...p, id: `${p.id}-${Math.random()}` }))
     ]);
     setPage((prev) => prev + 1);
     setIsLoading(false);

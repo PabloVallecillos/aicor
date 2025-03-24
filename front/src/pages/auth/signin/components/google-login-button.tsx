@@ -1,23 +1,27 @@
 import { Button } from '@/components/ui/button';
 import { useGoogleLogin } from '@react-oauth/google';
-// import { useAuth } from "@/hooks/use-auth.tsx";
+import { useAuth } from '@/hooks/use-auth.tsx';
 import { apiLogin } from '@/lib/api.ts';
+import { useRouter } from '@/routes/hooks';
+import { toast } from '@/components/ui/use-toast.ts';
 
 export default function GoogleLoginButton() {
-  // const { login } = useAuth();
+  const { login } = useAuth();
+  const router = useRouter();
 
   const googleLogin = useGoogleLogin({
-    onSuccess: async ({ code }) => {
-      console.log(code);
-      try {
-        const response = await apiLogin(code);
-        console.log(response);
-      } catch (error) {
-        console.error('Error', error);
+    onSuccess: async (tokenResponse) => {
+      const res = await apiLogin(tokenResponse.access_token);
+      if ('access_token' in res) {
+        login(String(res.access_token));
+        router.push('/');
+      } else {
+        toast({
+          title: 'Error',
+          description: 'Authentication failed'
+        });
       }
-    },
-    flow: 'auth-code',
-    scope: 'openid profile email'
+    }
   });
 
   return (
