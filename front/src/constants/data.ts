@@ -1,7 +1,7 @@
 import { NavItem, Product, type Purchase } from '@/types';
 import { Package, ShoppingBag } from 'lucide-react';
 
-export const navItems: NavItem[] = [
+export const NAV_ITEMS: NavItem[] = [
   {
     title: 'Start',
     href: '/',
@@ -14,7 +14,7 @@ export const navItems: NavItem[] = [
   }
 ];
 
-export const mockProducts: Product[] = [
+export const MOCK_PRODUCTS: Product[] = [
   {
     id: '1',
     name: 'Wireless Headphones',

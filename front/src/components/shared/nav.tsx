@@ -1,11 +1,27 @@
-import { ShoppingCart } from 'lucide-react';
+import { ShoppingCart, User } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useCart } from '@/hooks/use-cart.tsx';
-import { navItems } from '@/constants/data.ts';
+import { NAV_ITEMS } from '@/constants/data.ts';
 import { Logo } from '@/components/shared/logo.tsx';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu.tsx';
+import { Button } from '@/components/ui/button.tsx';
+import { useAuth } from '@/hooks/use-auth.tsx';
+import { useRouter } from '@/routes/hooks';
 
 export default function Nav() {
   const { totalItems, openCart } = useCart();
+  const { logout, authToken } = useAuth();
+  const router = useRouter();
+
+  const handleLogout = () => {
+    logout();
+    router.push('/');
+  };
 
   return (
     <nav className="bg-secondary shadow-sm dark:bg-primary-foreground">
@@ -16,7 +32,7 @@ export default function Nav() {
           </Link>
 
           <div className="flex items-center space-x-4">
-            {navItems.map(function ({ href, icon: Icon }) {
+            {NAV_ITEMS.map(function ({ href, icon: Icon }) {
               return (
                 <Link
                   key={href}
@@ -41,6 +57,25 @@ export default function Nav() {
                 </span>
               )}
             </button>
+
+            {authToken && (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="link" size="icon">
+                    <User className="absolute h-5 w-5" />
+                    <span className="sr-only">Toggle theme</span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem
+                    className="cursor-pointer"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
           </div>
         </div>
       </div>
