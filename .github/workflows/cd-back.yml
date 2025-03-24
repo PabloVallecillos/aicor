@@ -1,12 +1,12 @@
-name: CD
+name: CD back
 
 on:
   release:
     types: [published]
 
 jobs:
-  deploy:
-    name: Deploy to EC2
+  deploy-back:
+    name: Deploy back to EC2
     runs-on: ubuntu-latest
 
     steps:
@@ -17,11 +17,11 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-node-backend-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-node-backend-
 
-      - name: Configure local swap (Github Action Runner)
+      - name: Configure local swap (Runner)
         run: |
           sudo fallocate -l 4G /swapfile
           sudo chmod 600 /swapfile
@@ -34,6 +34,6 @@ jobs:
           echo "${{ secrets.CD_EC2_SSH_KEY }}" > private_key.pem
           chmod 600 private_key.pem
 
-      - name: Connect to EC2 and run deploy script
+      - name: Deploy Backend to EC2
         run: |
-          ssh -o StrictHostKeyChecking=no -i private_key.pem ${{ secrets.CD_EC2_USER }}@${{ secrets.CD_EC2_HOST }} 'source ~/.bashrc && bash ~/projects/aicor/deploy.sh'
+          ssh -o StrictHostKeyChecking=no -i private_key.pem ${{ secrets.CD_EC2_USER }}@${{ secrets.CD_EC2_HOST }} 'source ~/.bashrc && bash ~/projects/aicor/deploy-back.sh'
