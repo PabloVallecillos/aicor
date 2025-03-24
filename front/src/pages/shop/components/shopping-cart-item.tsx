@@ -24,7 +24,7 @@ export default function ShoppingCartItem({ item }: ShoppingCartItemProps) {
         </div>
         <div className="flex-grow">
           <h3 className="font-medium">{item.product.name}</h3>
-          <p className="text-gray-600">${item.product.price.toFixed(2)}</p>
+          <p className="text-gray-600">${item.product.price}</p>
           <div className="mt-2 flex items-center">
             <button
               onClick={() => updateQuantity(item.product.id, item.quantity - 1)}

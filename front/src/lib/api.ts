@@ -1,5 +1,9 @@
 import axios from 'axios';
-import { ApiLoginResponse } from '@/types';
+import {
+  ApiLoginResponse,
+  ApiListResponse,
+  RequestListEndpoint
+} from '@/types/api';
 import { JWT_LOCAL_STORAGE_KEY } from '@/constants/local-storage.tsx';
 
 const api = axios.create({
@@ -36,4 +40,8 @@ export async function apiLogin(accessToken: string) {
   return await api.post<ApiLoginResponse>(`/api/auth/google`, {
     access_token: accessToken
   });
+}
+
+export async function getProducts(data: RequestListEndpoint) {
+  return await api.post<ApiListResponse>(`/api/products/list`, data);
 }
