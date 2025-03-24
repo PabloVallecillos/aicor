@@ -18,6 +18,8 @@ jobs:
         with:
           host: ${{ secrets.CD_EC2_HOST }}
           username: ${{ secrets.CD_EC2_USER }}
+          port: ${{ secrets.CD_EC2_PORT }}
           key: ${{ secrets.CD_EC2_SSH_KEY }}
+          sync: false
           script_stop: true
           script: cd ~/projects/aicor && ./deploy.sh
