@@ -21,3 +21,7 @@ optimize:
 .PHONY: generate-jwt-secret
 generate-jwt-secret:
 	php artisan jwt:secret
+
+.PHONY: generate-entity-scaffolding
+generate-entity-scaffolding:
+	php artisan make:model $(name) -mfsrc --api

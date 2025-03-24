@@ -37,7 +37,7 @@ class GoogleAuthControllerRequest extends FormRequest
                     if (! $googleResponse->successful()) {
                         $validator->errors()->add(
                             'access_token',
-                            'Invalid token: '.($googleResponse->json('error_description') ?? 'Token validation failed')
+                            __('Invalid token: '.($googleResponse->json('error_description')) ?? __('Token validation failed'))
                         );
 
                         return;
@@ -46,11 +46,11 @@ class GoogleAuthControllerRequest extends FormRequest
                     $payload = $googleResponse->json();
 
                     if (! isset($payload['aud']) || $payload['aud'] !== config('services.google.client_id')) {
-                        $validator->errors()->add('access_token', 'Invalid audience (aud).');
+                        $validator->errors()->add('access_token', __('Invalid audience (aud).'));
                     }
 
                     if (! isset($payload['email'])) {
-                        $validator->errors()->add('access_token', 'Token does not contain email information.');
+                        $validator->errors()->add('access_token', __('Token does not contain email information.'));
                     }
                 }
             },
