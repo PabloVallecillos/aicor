@@ -41,6 +41,25 @@ This application implements a secure authentication flow using Google OAuth and 
 4. **Backend → Frontend:** Returns JWT token.
 5. **Frontend:** Stores JWT for subsequent authenticated requests.
 
+### 🙍‍♂️ back documentation
+- `/docs/api` for interactive testing
+- `/docs/api.json` OpenApi 3.1.0
+
+### 📄 back entity scaffolding
+
+See `back/Makefile`
+```bash
+make generate-entity-scaffolding name=ModelName
+```
+
+| Option  | Description               | Generated File                                      |
+|---------|---------------------------|-----------------------------------------------------|
+| `-m`    | Migration                 | `database/migrations/xxxx_xx_xx_xxxxxx_create_model_names_table.php` |
+| `-f`    | Factory                   | `database/factories/ModelNameFactory.php`            |
+| `-s`    | Seeder                    | `database/seeders/ModelNameSeeder.php`               |
+| `-c`    | Controller                | `app/Http/Controllers/ModelNameController.php`       |
+| `--api` | Makes the controller API  | Methods `index`, `store`, `show`, `update`, `destroy` |
+
 ## 🚀 Installation and Setup
 ### Requirements
 - **PHP 8.4**, Composer, MariaDB, Node.js, npm

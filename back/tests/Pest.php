@@ -11,6 +11,8 @@
 |
 */
 
+use Faker\Factory;
+
 pest()->extend(Tests\TestCase::class)
  // ->use(Illuminate\Foundation\Testing\RefreshDatabase::class)
     ->in('Feature');
@@ -44,4 +46,34 @@ expect()->extend('toBeOne', function () {
 function something()
 {
     // ..
+}
+
+function generateListFilters($class, $custom = []): array
+{
+    $faker = Factory::create();
+    $columns = Illuminate\Support\Facades\Schema::getColumnListing((new $class)->getTable());
+    $data['per_page'] = config('resource.listing.per_page');
+    $data['link_range'] = 1;
+    $data['page'] = 1;
+    $data['paginator_mode'] = 0;
+    $data['filters'] = $custom;
+
+    if ($faker->numberBetween(0, 1)) {
+        $active = $faker->randomElements($columns);
+
+        if ($active) {
+            if ($faker->numberBetween(0, 1)) {
+                $data['hide_fields'] = $active;
+            } else {
+                $data['only_fields'] = $active;
+            }
+        }
+    }
+
+    if ($faker->numberBetween(0, 1)) {
+        $orderField = array_values(array_slice($columns, array_rand($columns), 1))[0];
+        $data['order'] = [$orderField => ($faker->numberBetween(0, 1)) ? 'ASC' : 'DESC'];
+    }
+
+    return $data;
 }
