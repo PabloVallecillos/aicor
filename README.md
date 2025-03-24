@@ -31,6 +31,16 @@ Inspired by this [template](https://github.com/Kiranism/react-shadcn-dashboard-s
 - OpenAPI (Swagger) documentation - [scramble](https://scramble.dedoc.co/)
 - Authentication - [Laravel Socialite](https://laravel.com/docs/12.x/socialite)
 
+### 🙍‍♂️ authentication
+
+This application implements a secure authentication flow using Google OAuth and JWT tokens:
+
+1. **Frontend:** Displays Google login popup, collects access_token.
+2. **Frontend → Backend:** Sends Google access_token to backend.
+3. **Backend:** Validates token, retrieves user information, generates JWT.
+4. **Backend → Frontend:** Returns JWT token.
+5. **Frontend:** Stores JWT for subsequent authenticated requests.
+
 ## 🚀 Installation and Setup
 ### Requirements
 - **PHP 8.4**, Composer, MariaDB, Node.js, npm
@@ -42,6 +52,7 @@ cd back
 cp .env.example .env
 composer install
 php artisan key:generate
+php artisan jwt:secret
 php artisan migrate --seed
 php artisan serve
 ```
@@ -49,6 +60,7 @@ php artisan serve
 ### 🎨 Frontend (React)
 ```bash
 cd front
+cp .env.example .env
 npm install
 npm run dev
 ```
