@@ -1,0 +1,23 @@
+name: CD
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  deploy:
+    name: Deploy to EC2
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.CD_EC2_HOST }}
+          username: ${{ secrets.CD_EC2_USER }}
+          key: ${{ secrets.CD_EC2_SSH_KEY }}
+          script_stop: true
+          script: cd ~/projects/aicor && ./deploy.sh
