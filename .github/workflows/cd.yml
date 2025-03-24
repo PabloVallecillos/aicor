@@ -36,12 +36,4 @@ jobs:
 
       - name: Connect to EC2 and run deploy script
         run: |
-          ssh -o StrictHostKeyChecking=no -i private_key.pem ${{ secrets.CD_EC2_USER }}@${{ secrets.CD_EC2_HOST }} '
-            sudo fallocate -l 4G /swapfile && \
-            sudo chmod 600 /swapfile && \
-            sudo mkswap /swapfile && \
-            sudo swapon /swapfile && \
-            sudo sysctl vm.swappiness=10 && \
-            source ~/.bashrc && \
-            bash ~/projects/aicor/deploy.sh
-          '
+          ssh -o StrictHostKeyChecking=no -i private_key.pem ${{ secrets.CD_EC2_USER }}@${{ secrets.CD_EC2_HOST }} 'source ~/.bashrc && bash ~/projects/aicor/deploy.sh'
