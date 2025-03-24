@@ -26,7 +26,7 @@ describe('ProductCard', () => {
     render(<ProductCard product={product} onAddToCart={() => {}} />);
     expect(screen.getByText('Test Product')).toBeInTheDocument();
     expect(screen.getByText('Test product description')).toBeInTheDocument();
-    expect(screen.getByText('$20.00')).toBeInTheDocument();
+    expect(screen.getByText('$20')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /add/i })).toBeInTheDocument();
   });
 });

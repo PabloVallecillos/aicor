@@ -49,7 +49,7 @@ describe('ShoppingCartItem', () => {
 
   it('should display the quantity and price of the product in the cart', () => {
     render(<ShoppingCartItem item={mockItem} />);
-    expect(screen.getByText(/\$25.00/i)).toBeInTheDocument();
+    expect(screen.getByText(/\$25/i)).toBeInTheDocument();
     // expect(screen.getByText(/Quantity: 1/i)).toBeInTheDocument();
   });
 

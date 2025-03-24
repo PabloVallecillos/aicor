@@ -48,13 +48,3 @@ export interface CartContextType {
   totalItems: number;
   totalPrice: number;
 }
-
-export interface ApiLoginResponse {
-  access_token: string;
-  token_type: string;
-  expires_in: number;
-}
-
-export interface ApiLoginError {
-  message: string;
-}

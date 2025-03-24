@@ -27,7 +27,7 @@ export default function ProductCard({
           {product.description}
         </p>
         <div className="mt-auto flex items-center justify-between">
-          <span className="text-lg font-bold text-primary">{`$${product.price.toFixed(2)}`}</span>
+          <span className="text-lg font-bold text-primary">{`$${product.price}`}</span>
           <button
             onClick={onAddToCart}
             className="rounded-md bg-primary px-3 py-1 text-sm text-muted transition-colors duration-200 hover:bg-background hover:text-muted-foreground"
