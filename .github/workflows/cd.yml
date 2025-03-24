@@ -13,11 +13,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up SSH Key
-        run: |
-          echo "${{ secrets.CD_EC2_SSH_KEY }}" > private_key.pem
-          chmod 600 private_key.pem
-
-      - name: Connect to EC2 and run deploy script
-        run: |
-          ssh -o StrictHostKeyChecking=no -i private_key.pem ${{ secrets.CD_EC2_USER }}@${{ secrets.CD_EC2_HOST }} 'source ~/.bashrc && bash ~/projects/aicor/deploy.sh'
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.CD_EC2_HOST }}
+          username: ${{ secrets.CD_EC2_USER }}
+          port: ${{ secrets.CD_EC2_PORT }}
+          key: ${{ secrets.CD_EC2_SSH_KEY }}
+          sync: false
+          script_stop: true
+          script: cd ~/projects/aicor && ./deploy.sh
