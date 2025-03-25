@@ -41,7 +41,7 @@ This application implements a secure authentication flow using Google OAuth and 
 4. **Backend → Frontend:** Returns JWT token.
 5. **Frontend:** Stores JWT for subsequent authenticated requests.
 
-### 🙍‍♂️ back documentation
+### 🔄 back api documentation
 - `/docs/api` for interactive testing
 - `/docs/api.json` OpenApi 3.1.0
 
@@ -72,6 +72,7 @@ cp .env.example .env
 composer install
 php artisan key:generate
 php artisan jwt:secret
+php artisan storage:link
 php artisan migrate --seed
 php artisan serve
 ```

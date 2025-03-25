@@ -1,58 +1,46 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
-import ProductCard from './product-card';
-import type { Product } from '@/types';
-import { useCart } from '@/hooks/use-cart.tsx';
+import { useGetInfiniteProducts } from '@/pages/shop/queries/queries.ts';
+import { Product } from '@/types';
+import { useEffect } from 'react';
 import Loader from '@/components/shared/loader.tsx';
-import { useProducts } from '@/pages/shop/queries/queries.ts';
+import ProductCard from '@/pages/shop/components/product-card.tsx';
+import { useCart } from '@/hooks/use-cart.tsx';
+import { useInView } from 'react-intersection-observer';
 
 export default function ProductGrid() {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [page, setPage] = useState(1);
   const { addToCart } = useCart();
-  const loaderRef = useRef<HTMLDivElement | null>(null);
-  const { data, isLoading, isFetching, isError } = useProducts({
-    per_page: 12 * 2,
-    page: page
-  });
+  const { ref, inView } = useInView();
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
+    useGetInfiniteProducts();
 
-  const fetchProducts = useCallback(async () => {
-    if (data && !isLoading && !isFetching) {
-      setProducts((prevProducts) => [...prevProducts, ...data.data]);
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
     }
-  }, [data, isLoading, isFetching]);
+  }, [inView, hasNextPage, fetchNextPage]);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && !isLoading && !isFetching) {
-          setPage((prevPage) => prevPage + 1);
-        }
-      },
-      { rootMargin: '100px' }
+  if (status === 'error') {
+    return (
+      <div className="grid h-full place-content-center">
+        Error when loading products
+      </div>
     );
-
-    if (loaderRef.current) observer.observe(loaderRef.current);
-    return () => observer.disconnect();
-  }, [isLoading, isFetching]);
-
-  useEffect(() => {
-    fetchProducts();
-  }, [data, fetchProducts]);
+  }
 
   return (
     <div className="relative">
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {!isError &&
-          products.map((product) => (
+        {data?.pages.map((page) =>
+          page.data.map((product: Product) => (
             <ProductCard
               key={product.id}
               product={product}
               onAddToCart={() => addToCart(product)}
             />
-          ))}
+          ))
+        )}
       </div>
-      <div ref={loaderRef} className="scroll-detector h-10"></div>
-      {isLoading && <Loader />}
+      <div ref={ref} className="scroll-detector"></div>
+      {isFetchingNextPage && <Loader />}
     </div>
   );
 }
