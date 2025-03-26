@@ -83,11 +83,8 @@ readonly class CartService
             'id' => $cart->id,
             'items' => $items->map(function ($item) {
                 return [
-                    'id' => $item->product->id,
-                    'name' => $item->product->name,
+                    'product' => $item->product,
                     'quantity' => $item->quantity,
-                    'price' => $item->price,
-                    'total' => $item->quantity * $item->price,
                 ];
             }),
             'total' => $items->sum(fn ($item) => $item->quantity * $item->price),
