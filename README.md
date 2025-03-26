@@ -140,18 +140,6 @@ make generate-entity-scaffolding name=ModelName
 - Database queries are optimized with indexing. ⚡️
 - Efficient management of cart items to minimize overhead. ⚙️
 
-#### 🔍 Monitoring & Logging
-
-- Tracking of key cart interactions for insights. 📝
-- Logging of critical events and potential issues. 📝
-- Hooks for performance monitoring and analysis. 📊
-
-#### 📊 Scalability Considerations
-
-- Architecture designed to handle high traffic loads. 📈
-- Supports different strategies for cart management. 🛠️
-- Designed for easy integration with microservices. 🔗
-
 ## 🚀 Installation and Setup
 ### Requirements
 - **PHP 8.4**, Composer, MariaDB, Node.js, npm
