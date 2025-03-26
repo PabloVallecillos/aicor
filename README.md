@@ -98,6 +98,7 @@ make generate-entity-scaffolding name=ModelName
 
 ##### 👤 Authenticated Users
 - Add products to cart: ➕
+- Add multiple products to cart ➕
 - Update quantities: ⬆️⬇️
 - Remove products: 🗑️
 - Clear cart completely: 🧹
