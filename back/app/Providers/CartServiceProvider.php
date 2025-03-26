@@ -2,18 +2,18 @@
 
 namespace App\Providers;
 
-use App\Services\CartSessionService;
-use App\Services\Contracts\CartSessionServiceInterface;
-use Illuminate\Support\ServiceProvider;
 use App\Repositories\CartRepository;
 use App\Services\AuthService;
 use App\Services\CartService;
+use App\Services\CartSessionService;
 use App\Services\Contracts\AuthServiceInterface;
 use App\Services\Contracts\CartRepositoryInterface;
+use App\Services\Contracts\CartSessionServiceInterface;
 use App\Services\Contracts\SessionServiceInterface;
 use App\Services\SessionService;
 use Illuminate\Cookie\CookieJar;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\ServiceProvider;
 
 class CartServiceProvider extends ServiceProvider
 {
