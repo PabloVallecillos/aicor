@@ -2,7 +2,8 @@ import axios from 'axios';
 import {
   ApiLoginResponse,
   ApiListResponse,
-  RequestListEndpoint
+  RequestListEndpoint,
+  RequestCartAddMultipleEndpoint
 } from '@/types/api';
 import { JWT_LOCAL_STORAGE_KEY } from '@/constants/local-storage.tsx';
 import { CartItem, Product } from '@/types';
@@ -50,6 +51,10 @@ export async function getProducts(data: RequestListEndpoint) {
 export const cartApi = {
   getCart: async () => {
     return await api.get<CartItem[]>('/api/cart');
+  },
+
+  addMultipleToCart: async (data: RequestCartAddMultipleEndpoint) => {
+    return await api.post<CartItem>(`/api/cart/add-multiple`, data);
   },
 
   addToCart: async (product: Product) => {
