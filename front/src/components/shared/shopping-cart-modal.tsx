@@ -1,9 +1,9 @@
 import { useCart } from '@/hooks/use-cart.tsx';
 import ShoppingCartItem from '@/pages/shop/components/shopping-cart-item.tsx';
-import { X } from 'lucide-react';
+import { Trash, X } from 'lucide-react';
 
 export default function ShoppingCartModal() {
-  const { isCartOpen, closeCart, cartItems, totalPrice } = useCart();
+  const { isCartOpen, closeCart, clearCart, cartItems, totalPrice } = useCart();
 
   return (
     <>
@@ -49,12 +49,21 @@ export default function ShoppingCartModal() {
               <span className="font-medium">Total:</span>
               <span className="font-bold">${totalPrice.toFixed(2)}</span>
             </div>
-            <button
-              className="w-full rounded-md bg-primary py-2 font-medium text-white hover:bg-primary/90 disabled:opacity-50"
-              disabled={cartItems.length === 0}
-            >
-              Proceed to payment
-            </button>
+            <div className="flex gap-2">
+              <button
+                className="flex w-12 flex-shrink-0 items-center justify-center rounded-md border-2 bg-secondary py-2 font-medium text-red-500 hover:text-red-700 disabled:opacity-50"
+                disabled={cartItems.length === 0}
+                onClick={clearCart}
+              >
+                <Trash />
+              </button>
+              <button
+                className="flex-grow rounded-md bg-primary py-2 font-medium text-white hover:bg-primary/90 disabled:opacity-50"
+                disabled={cartItems.length === 0}
+              >
+                Proceed to payment
+              </button>
+            </div>
           </div>
         </div>
       </div>
