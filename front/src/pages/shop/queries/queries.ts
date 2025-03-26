@@ -16,6 +16,6 @@ export const useGetInfiniteProducts = () => {
       }
       return undefined;
     },
-    retry: false,
+    retry: false
   });
 };
