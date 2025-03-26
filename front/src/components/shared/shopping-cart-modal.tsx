@@ -34,7 +34,7 @@ export default function ShoppingCartModal() {
 
           <div className="flex-grow overflow-auto p-4">
             {cartItems.length === 0 ? (
-              <div className="py-8 text-center text-gray-500">Empty cart</div>
+              <div className="py-8 text-center text-primary">Empty cart</div>
             ) : (
               <ul className="space-y-4">
                 {cartItems.map((item) => (
@@ -53,7 +53,10 @@ export default function ShoppingCartModal() {
               <button
                 className="flex w-12 flex-shrink-0 items-center justify-center rounded-md border-2 bg-secondary py-2 font-medium text-red-500 hover:text-red-700 disabled:opacity-50"
                 disabled={cartItems.length === 0}
-                onClick={clearCart}
+                onClick={() => {
+                  clearCart();
+                  closeCart();
+                }}
               >
                 <Trash />
               </button>

@@ -24,11 +24,11 @@ export default function ShoppingCartItem({ item }: ShoppingCartItemProps) {
         </div>
         <div className="flex-grow">
           <h3 className="font-medium">{item.product.name}</h3>
-          <p className="text-gray-600">${item.product.price}</p>
+          <p className="text-primary">${item.product.price}</p>
           <div className="mt-2 flex items-center">
             <button
               onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
-              className="flex h-8 w-8 items-center justify-center rounded-l border"
+              className="flex h-8 w-8 items-center justify-center rounded-l border text-primary"
             >
               -
             </button>
@@ -37,7 +37,7 @@ export default function ShoppingCartItem({ item }: ShoppingCartItemProps) {
             </span>
             <button
               onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
-              className="flex h-8 w-8 items-center justify-center rounded-r border"
+              className="flex h-8 w-8 items-center justify-center rounded-r border text-primary"
             >
               +
             </button>

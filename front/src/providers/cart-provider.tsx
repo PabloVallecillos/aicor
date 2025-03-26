@@ -3,6 +3,7 @@ import { Product, CartItem } from '@/types';
 import { useToast } from '@/components/ui/use-toast.ts';
 import { CartContext } from '@/hooks/use-cart';
 import { cartApi } from '@/lib/api';
+import { RequestCartAddMultipleEndpoint } from '@/types/api.tsx';
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
@@ -37,11 +38,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
     try {
       await cartApi.addToCart(product);
 
-      toast({
-        title: product.name,
-        description: 'Successfully added'
-      });
-
       setCartItems((prevCart) => {
         const existingItem = prevCart.find(
           (item) => item.product.id === product.id
@@ -64,6 +60,46 @@ export function CartProvider({ children }: { children: ReactNode }) {
         description: 'Could not add item to cart',
         variant: 'destructive'
       });
+    }
+  };
+
+  const addMultipleToCart = async (
+    products: { product: Product; quantity: number }[]
+  ) => {
+    try {
+      const apiRequestData: RequestCartAddMultipleEndpoint = {
+        items: products.map(({ product, quantity }) => ({
+          product_id: Number(product.id),
+          quantity
+        }))
+      };
+
+      await cartApi.addMultipleToCart(apiRequestData);
+
+      setCartItems((prevCart) => {
+        const updatedCart = [...prevCart];
+
+        products.forEach(({ product, quantity }) => {
+          const existingItemIndex = updatedCart.findIndex(
+            (item) => item.product.id === product.id
+          );
+
+          if (existingItemIndex >= 0) {
+            updatedCart[existingItemIndex] = {
+              ...updatedCart[existingItemIndex],
+              quantity: updatedCart[existingItemIndex].quantity + quantity
+            };
+          } else {
+            updatedCart.push({ product, quantity });
+          }
+        });
+
+        return updatedCart;
+      });
+
+      openCart();
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -146,7 +182,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
     clearCart,
     totalItems,
     totalPrice,
-    fetchCartItems
+    fetchCartItems,
+    addMultipleToCart
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

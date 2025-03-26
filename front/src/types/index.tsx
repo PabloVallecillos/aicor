@@ -44,6 +44,9 @@ export interface CartContextType {
   clearCart: () => void;
   closeCart: () => void;
   addToCart: (product: Product) => void;
+  addMultipleToCart: (
+    products: { product: Product; quantity: number }[]
+  ) => void;
   removeFromCart: (productId: string) => void;
   updateQuantity: (productId: string, quantity: number) => void;
   totalItems: number;

@@ -24,6 +24,13 @@ export interface RequestListEndpoint {
   paginator_mode?: number;
 }
 
+export interface RequestCartAddMultipleEndpoint {
+  items: {
+    product_id: number;
+    quantity: number;
+  }[];
+}
+
 export interface PaginationResponse<T> {
   current_page: number;
   data: T[];
