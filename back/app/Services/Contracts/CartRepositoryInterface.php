@@ -10,6 +10,8 @@ interface CartRepositoryInterface
 
     public function create(array $data): object;
 
+    public function addMultipleItems(object $cart, array $products): object;
+
     public function addItem(object $cart, Product $product, int $quantity): object;
 
     public function removeItem(object $cart, Product $product): void;

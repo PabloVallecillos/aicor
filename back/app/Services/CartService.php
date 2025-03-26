@@ -43,6 +43,14 @@ readonly class CartService
         return $cart;
     }
 
+    public function addMultipleItems(array $products): array
+    {
+        $cart = $this->getCurrentCart();
+        $updatedCart = $this->cartRepository->addMultipleItems($cart, $products);
+
+        return $this->getCartDetails($updatedCart);
+    }
+
     public function addItem(Product $product, int $quantity = 1): array
     {
         $cart = $this->getCurrentCart();

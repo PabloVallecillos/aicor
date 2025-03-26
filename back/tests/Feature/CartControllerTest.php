@@ -4,6 +4,7 @@ use App\Models\Product;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Testing\Fluent\AssertableJson;
 
 uses(RefreshDatabase::class);
 
@@ -153,5 +154,92 @@ test('adding same product increases quantity', function () {
             'id' => $this->product->id,
             'quantity' => 2,
             'total' => 2 * 19.99,
+        ]);
+});
+
+it('can add multiple items to cart successfully', function () {
+    $products = Product::factory()->count(3)->create();
+
+    $requestData = [
+        'items' => [
+            [
+                'product_id' => $products[0]->id,
+                'quantity' => 2,
+            ],
+            [
+                'product_id' => $products[1]->id,
+                'quantity' => 3,
+            ],
+            [
+                'product_id' => $products[2]->id,
+                'quantity' => 1,
+            ],
+        ],
+    ];
+
+    $response = $this->postJson(route('api.cart.add.multiple'), $requestData);
+
+    $response
+        ->assertStatus(200)
+        ->assertJson(function (AssertableJson $json) use ($products) {
+            $json->has('items')
+                ->whereType('items', 'array')
+                ->has('items.0', function (AssertableJson $item) use ($products) {
+                    $item->has('product')
+                        ->where('product.id', $products[0]->id);
+                    $item->where('quantity', 2);
+                })
+                ->has('items.1', function (AssertableJson $item) use ($products) {
+                    $item->has('product')
+                        ->where('product.id', $products[1]->id);
+                    $item->where('quantity', 3);
+                })
+                ->has('items.2', function (AssertableJson $item) use ($products) {
+                    $item->has('product')
+                        ->where('product.id', $products[2]->id);
+                    $item->where('quantity', 1);
+                });
+
+            $json->hasAll(['id', 'total', 'total_items']);
+        });
+});
+
+it('throws an error when a product does not exist', function () {
+    $id = 11199999;
+    $requestData = [
+        'items' => [
+            [
+                'product_id' => $id,
+                'quantity' => 2,
+            ],
+        ],
+    ];
+
+    $response = $this->postJson(route('api.cart.add.multiple'), $requestData);
+
+    $response
+        ->assertStatus(404)
+        ->assertJson([
+            'message' => __('Product with ID :id not found', ['id' => $id]),
+        ]);
+});
+
+it('validates request data', function () {
+    $requestData = [
+        'items' => [
+            [
+                'product_id' => null,
+                'quantity' => -1,
+            ],
+        ],
+    ];
+
+    $response = $this->postJson(route('api.cart.add.multiple'), $requestData);
+
+    $response
+        ->assertStatus(422)
+        ->assertJsonValidationErrors([
+            'items.0.product_id',
+            'items.0.quantity',
         ]);
 });
