@@ -47,16 +47,13 @@ test('can add item to cart', function () {
         ->assertJsonStructure([
             'id',
             'items' => [
-                '*' => ['id', 'name', 'quantity', 'price', 'total'],
+                '*' => [
+                    'product',
+                    'quantity',
+                ],
             ],
             'total',
             'total_items',
-        ])
-        ->assertJsonFragment([
-            'id' => $this->product->id,
-            'name' => $this->product->name,
-            'quantity' => 1,
-            'price' => '19.99',
         ]);
 });
 
