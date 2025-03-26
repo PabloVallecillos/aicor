@@ -60,6 +60,98 @@ make generate-entity-scaffolding name=ModelName
 | `-c`    | Controller                | `app/Http/Controllers/ModelNameController.php`       |
 | `--api` | Makes the controller API  | Methods `index`, `store`, `show`, `update`, `destroy` |
 
+### 🛒 back cart architecture
+
+#### ✨ Key Features
+
+- 🔐 **Secure User Support:** Supports both authenticated users with account-linked carts and guest users with temporary, session-based carts.
+- 💾 **Database Driven:** Leverages database persistence for reliable cart data storage.
+- 🔄 **Dynamic Cart Management:** Enables adding, updating quantities, and removing products from the cart in real-time.
+- 🛡️ **Robust Security:** Ensures cart isolation between users and includes cleanup mechanisms for old guest carts.
+
+#### 🏗️ System Architecture
+
+##### Core Components
+
+1. **Models**
+   - `Cart`: Represents the main shopping cart entity.
+   - `CartItem`: Represents individual items within a cart.
+
+2. **Services**
+   - `CartService`: Contains the core business logic for cart operations.
+   - `CartSessionService`: Manages cart data for guest users using sessions.
+   - `AuthService`: Handles user authentication and linking carts.
+
+3. **Controllers**
+   - `CartController`: Provides REST API endpoints for interacting with the cart.
+
+4. **Repositories**
+   - `CartRepository`: Handles database interactions for cart data.
+
+5. **Contracts**
+   - `CartRepositoryInterface`: Defines the contract for cart data access.
+   - `CartServiceInterface`: Defines the contract for cart business logic.
+   - `CartSessionServiceInterface`: Defines the contract for cart session management.
+   - `AuthServiceInterface`: Defines the contract for authentication services related to carts.
+
+#### 🚀 Functionality
+
+##### 👤 Authenticated Users
+- Add products to cart: ➕
+- Update quantities: ⬆️⬇️
+- Remove products: 🗑️
+- Clear cart completely: 🧹
+
+##### 👻 Guest Users
+- Create temporary cart: 🆕
+- Cart persistence via session token: 🍪
+- Automatic cart migration upon registration: ➡️👤
+
+#### 📦 Database Migrations
+
+##### Table Structure
+
+- `carts`: Stores primary cart information
+  - `user_id`: Links to an authenticated user (nullable).
+  - `guest_id`: Identifier for guest users (nullable).
+  - `session_token`: Token for guest user session persistence (nullable).
+
+- `cart_items`: Stores individual items in a cart
+  - `cart_id`: Foreign key linking to the `carts` table.
+  - `product_id`: Identifier of the associated product.
+  - `quantity`: Number of units of the product.
+  - `price`: Price of the product at the time of addition.
+
+#### 🔒 Security Considerations
+
+- Cart data is isolated between different users. 🧍↔️🧍
+- Scheduled jobs to clean up old and abandoned guest carts. ⏳🗑️
+- Permission checks implemented for all cart operations. ✅
+
+#### 🧪 Testing
+
+- Comprehensive tests for authenticated user scenarios. ✅👤
+- Thorough tests for guest user scenarios. ✅👻
+- Edge case testing to ensure robustness. 🧪
+- Security-focused tests to prevent unauthorized access. 🛡️✅
+
+#### 🚨 Performance Optimization
+
+- Database queries are optimized with indexing. ⚡️
+- Efficient management of cart items to minimize overhead. ⚙️
+
+#### 🔍 Monitoring & Logging
+
+- Tracking of key cart interactions for insights. 📝
+- Logging of critical events and potential issues. 📝
+- Hooks for performance monitoring and analysis. 📊
+
+#### 📊 Scalability Considerations
+
+- Architecture designed to handle high traffic loads. 📈
+- Supports different strategies for cart management. 🛠️
+- Designed for easy integration with microservices. 🔗
+
 ## 🚀 Installation and Setup
 ### Requirements
 - **PHP 8.4**, Composer, MariaDB, Node.js, npm
