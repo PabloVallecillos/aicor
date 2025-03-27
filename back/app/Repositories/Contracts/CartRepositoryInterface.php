@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Contracts;
+namespace App\Repositories\Contracts;
 
 use App\Models\Product;
 
@@ -19,4 +19,8 @@ interface CartRepositoryInterface
     public function updateItemQuantity(object $cart, Product $product, int $quantity): object;
 
     public function clearCart(object $cart): void;
+
+    public function getTotalAmount(object $cart);
+
+    public function getCartItems(object $cart);
 }
