@@ -10,6 +10,6 @@ class ProductController extends ResourceController
 {
     public function __invoke(ProductListRequest $request): JsonResponse
     {
-        return response()->json(self::list(Product::class, $request->all()));
+        return response()->json(self::list(Product::class, $request->validated()));
     }
 }

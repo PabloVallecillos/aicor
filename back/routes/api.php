@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ConfirmPurchaseController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -10,7 +11,8 @@ Route::get('/health/check', fn () => response()->json())->name('api.health.check
 Route::prefix('auth')->group(function () {
     Route::post('/google', GoogleAuthController::class)->name('api.auth.google');
 });
-Route::post('products/list', ProductController::class)->name('products.list');
+Route::post('products/list', ProductController::class)->name('api.products.list');
+Route::post('orders/list', OrderController::class)->name('api.orders.list');
 
 Route::prefix('cart')->group(function () {
     Route::get('/', [CartController::class, 'get'])->name('api.cart.get');
