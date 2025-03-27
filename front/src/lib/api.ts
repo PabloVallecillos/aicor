@@ -48,6 +48,10 @@ export async function getProducts(data: RequestListEndpoint) {
   return await api.post<ApiListResponse>(`/api/products/list`, data);
 }
 
+export async function getOrders(data: RequestListEndpoint) {
+  return await api.post<ApiListResponse>(`/api/orders/list`, data);
+}
+
 export const cartApi = {
   getCart: async () => {
     return await api.get<CartItem[]>('/api/cart');
