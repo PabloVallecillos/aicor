@@ -73,3 +73,7 @@ export const cartApi = {
     return await api.delete('/api/cart/clear');
   }
 };
+
+export async function confirmPurchase(data: object) {
+  return await api.post(`/api/confirm-purchase`, data);
+}

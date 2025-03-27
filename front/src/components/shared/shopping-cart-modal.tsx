@@ -1,9 +1,36 @@
 import { useCart } from '@/hooks/use-cart.tsx';
 import ShoppingCartItem from '@/pages/shop/components/shopping-cart-item.tsx';
 import { Trash, X } from 'lucide-react';
+import { toast } from '@/components/ui/use-toast.ts';
+import { confirmPurchase } from '@/lib/api.ts';
+import { useState } from 'react';
 
 export default function ShoppingCartModal() {
   const { isCartOpen, closeCart, clearCart, cartItems, totalPrice } = useCart();
+  const [isProcessing, setIsProcessing] = useState<boolean>(false);
+
+  const handleConfirmPurchase = async () => {
+    if (cartItems.length === 0) return;
+    setIsProcessing(true);
+    try {
+      await confirmPurchase(cartItems);
+      clearCart();
+      closeCart();
+      toast({
+        title: 'Congratulations!',
+        description: 'Order registered'
+      });
+    } catch (error) {
+      console.error(error);
+      toast({
+        title: 'Error',
+        description: 'Could not confirm purchase',
+        variant: 'destructive'
+      });
+    } finally {
+      setIsProcessing(false);
+    }
+  };
 
   return (
     <>
@@ -62,7 +89,8 @@ export default function ShoppingCartModal() {
               </button>
               <button
                 className="flex-grow rounded-md bg-primary py-2 font-medium text-white hover:bg-primary/90 disabled:opacity-50"
-                disabled={cartItems.length === 0}
+                disabled={cartItems.length === 0 || isProcessing}
+                onClick={handleConfirmPurchase}
               >
                 Proceed to payment
               </button>
