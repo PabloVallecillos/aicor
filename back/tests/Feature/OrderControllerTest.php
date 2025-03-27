@@ -64,4 +64,3 @@ it('ensure unauthenticated users cannot filter orders', function () {
 
     $response->assertForbidden();
 });
-

@@ -13,11 +13,12 @@ class Order extends Model
     use AdvancedResource, HasFactory;
 
     const STATUS_PENDING = 'pending';
+
     const STATUSES = [
         self::STATUS_PENDING,
         'processing',
         'completed',
-        'cancelled'
+        'cancelled',
     ];
 
     protected $fillable = [

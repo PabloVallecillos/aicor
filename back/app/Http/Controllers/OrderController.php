@@ -12,6 +12,7 @@ class OrderController extends ResourceController
     {
         $filters = $request->validated();
         $filters['filters']['user_id'] = auth()->id();
+
         return response()->json(self::list(Order::class, $filters));
     }
 }
