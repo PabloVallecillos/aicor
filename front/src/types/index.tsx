@@ -28,6 +28,7 @@ export interface Purchase {
   date: Date;
   status: string;
   total: number;
+  total_amount: number;
   items: CartItem[];
 }
 

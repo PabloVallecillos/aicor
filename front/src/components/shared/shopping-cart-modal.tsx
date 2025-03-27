@@ -74,7 +74,7 @@ export default function ShoppingCartModal() {
           <div className="border-t p-4">
             <div className="mb-4 flex justify-between">
               <span className="font-medium">Total:</span>
-              <span className="font-bold">${totalPrice.toFixed(2)}</span>
+              <span className="font-bold">${totalPrice}</span>
             </div>
             <div className="flex gap-2">
               <button
