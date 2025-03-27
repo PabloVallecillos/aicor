@@ -3,14 +3,11 @@
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Testing\Fluent\AssertableJson;
 
 uses(RefreshDatabase::class);
 
 beforeEach(function () {
-    Config::set('jwt.secret', 'test_secret_key_that_is_long_enough');
-
     $this->user = User::factory()->create([
         'email' => 'test@example.com',
         'password' => bcrypt('password123'),

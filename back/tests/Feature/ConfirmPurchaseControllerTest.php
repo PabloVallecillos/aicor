@@ -7,14 +7,11 @@ use App\Models\Product;
 use App\Models\User;
 use App\Services\Contracts\CartSessionServiceInterface;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Config;
 use Symfony\Component\HttpFoundation\Response;
 
 uses(RefreshDatabase::class);
 
 beforeEach(function () {
-    Config::set('jwt.secret', 'test_secret_key_that_is_long_enough');
-
     $this->user = User::factory()->create();
 
     $this->actingAs($this->user, 'api');
