@@ -12,7 +12,7 @@ use App\Services\Contracts\CartSessionServiceInterface;
 use App\Services\Contracts\SessionServiceInterface;
 use App\Services\SessionService;
 use Illuminate\Cookie\CookieJar;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
 
 class CartServiceProvider extends ServiceProvider
