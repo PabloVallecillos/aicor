@@ -22,19 +22,13 @@ export default function PurchaseItem({ purchase }: PurchaseItemProps) {
             <p className="text-sm text-primary">{formattedDate}</p>
           </div>
           <div className="flex items-center gap-3">
+            <span className={`px-2 py-1 rounded-full text-xs font-medium bg-accent uppercase`}>
+              {purchase.status}
+            </span>
             <span className="font-bold text-primary">
-              ${purchase.total.toFixed(2)}
+              ${purchase.total_amount}
             </span>
           </div>
-        </div>
-      </div>
-
-      <div className="flex items-center justify-end p-4">
-        <div className="flex items-center gap-2">
-          <span className="text-sm text-primary">
-            {purchase.items.length}{' '}
-            {purchase.items.length === 1 ? 'product' : 'products'}
-          </span>
         </div>
       </div>
     </div>
