@@ -20,6 +20,9 @@ class ProductRepository implements ProductRepositoryInterface
     public function reduceStock(object $product, int $quantity): void
     {
         $product->stock -= $quantity;
+        if ($product instanceof Product) {
+            $product->save();
+        }
     }
 
     public function findManyByIds(array $productIds): array
