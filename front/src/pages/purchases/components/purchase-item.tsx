@@ -22,7 +22,9 @@ export default function PurchaseItem({ purchase }: PurchaseItemProps) {
             <p className="text-sm text-primary">{formattedDate}</p>
           </div>
           <div className="flex items-center gap-3">
-            <span className={`px-2 py-1 rounded-full text-xs font-medium bg-accent uppercase`}>
+            <span
+              className={`rounded-full bg-accent px-2 py-1 text-xs font-medium uppercase`}
+            >
               {purchase.status}
             </span>
             <span className="font-bold text-primary">
