@@ -13,6 +13,12 @@ class Order extends Model
     use AdvancedResource, HasFactory;
 
     const STATUS_PENDING = 'pending';
+    const STATUSES = [
+        self::STATUS_PENDING,
+        'processing',
+        'completed',
+        'cancelled'
+    ];
 
     protected $fillable = [
         'user_id',
@@ -29,5 +35,15 @@ class Order extends Model
     public function orderItems(): HasMany
     {
         return $this->hasMany(OrderItem::class);
+    }
+
+    public function resourceDefaultFieldsFilter(): array
+    {
+        return ['name'];
+    }
+
+    public function resourceDefaultOrder(): array
+    {
+        return ['created_at' => 'ASC'];
     }
 }
