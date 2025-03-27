@@ -5,7 +5,7 @@ namespace App\Repositories;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Product;
-use App\Services\Contracts\CartRepositoryInterface;
+use App\Repositories\Contracts\CartRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 
 class CartRepository implements CartRepositoryInterface
@@ -154,5 +154,15 @@ class CartRepository implements CartRepositoryInterface
     public function clearCart(object $cart): void
     {
         $cart->cartItems()->delete();
+    }
+
+    public function getTotalAmount(object $cart)
+    {
+        return CartItem::where('cart_id', $cart->id)->sum(DB::raw('quantity * price'));
+    }
+
+    public function getCartItems(object $cart)
+    {
+        return $cart->cartItems()->get()->toArray();
     }
 }
