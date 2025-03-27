@@ -15,7 +15,7 @@ it('tests the index route', function () {
 
     $data = generateListFilters(Product::class);
 
-    $response = $this->post(route('products.list'), $data, $headers);
+    $response = $this->post(route('api.products.list'), $data, $headers);
 
     $response->assertOk();
 
