@@ -1,9 +1,9 @@
 <?php
 
 use App\Models\Product;
+use App\Repositories\Contracts\CartRepositoryInterface;
 use App\Services\CartService;
 use App\Services\Contracts\AuthServiceInterface;
-use App\Services\Contracts\CartRepositoryInterface;
 use App\Services\Contracts\SessionServiceInterface;
 
 beforeEach(function () {

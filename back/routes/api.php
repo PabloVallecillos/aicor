@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\ConfirmPurchaseController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,3 +20,5 @@ Route::prefix('cart')->group(function () {
     Route::put('update/{product}/{quantity}', [CartController::class, 'updateQuantity'])->name('api.cart.update');
     Route::delete('clear', [CartController::class, 'clear'])->name('api.cart.clear');
 });
+
+Route::post('/confirm-purchase', ConfirmPurchaseController::class)->name('api.purchase.confirm');

@@ -3,11 +3,11 @@
 namespace App\Providers;
 
 use App\Repositories\CartRepository;
+use App\Repositories\Contracts\CartRepositoryInterface;
 use App\Services\AuthService;
 use App\Services\CartService;
 use App\Services\CartSessionService;
 use App\Services\Contracts\AuthServiceInterface;
-use App\Services\Contracts\CartRepositoryInterface;
 use App\Services\Contracts\CartSessionServiceInterface;
 use App\Services\Contracts\SessionServiceInterface;
 use App\Services\SessionService;
