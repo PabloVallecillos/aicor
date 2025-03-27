@@ -27,9 +27,14 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  useEffect(() => {
-    fetchCartItems();
-  });
+  useEffect(
+    () => {
+      fetchCartItems();
+    },
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    []
+  );
 
   const openCart = () => setIsCartOpen(true);
   const closeCart = () => setIsCartOpen(false);
@@ -148,10 +153,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
     try {
       await cartApi.clearCart();
       setCartItems([]);
-      toast({
-        title: 'Cart Cleared',
-        description: 'All items have been removed'
-      });
     } catch (error) {
       console.error(error);
       toast({
