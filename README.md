@@ -226,6 +226,48 @@ npm install
 npm run dev
 ```
 
+### Installation
+```bash
+git clone https://github.com/PabloVallecillos/aicor.git
+
+cd aicor
+
+cd front
+
+cp .env.example .env
+
+vim .env
+VITE_API_BASE_URL=http://localhost:8000
+VITE_GOOGLE_CLIENT_ID=
+
+nvm use --lts
+
+npm install
+
+npm run dev
+
+cd ../back
+
+cp .env.example .env
+
+SESSION_DRIVER=cookie
+AUTH_GUARD=api
+JWT_SECRET=
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+SESSION_SECURE_COOKIE=true
+SESSION_SAME_SITE=lax
+
+composer install
+
+php artisan key:generate
+php artisan jwt:secret
+php artisan storage:link
+php artisan migrate --seed
+php artisan serve
+```
+
+
 ## ✅ CI/CD: GitHub Actions
 Workflows have been set up in **.github/workflows/**:
 - **CI (Continuous Integration):** Runs tests and checks code on PRs.
